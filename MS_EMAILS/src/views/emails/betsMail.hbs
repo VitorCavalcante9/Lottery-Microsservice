@@ -1,0 +1,59 @@
+<style>
+  * {
+    font-family: 'Helvetica';
+  }
+  header {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    color: #717171;
+    font-size: 3rem;
+    font-weight: 600;
+    font-style: italic;
+    border-bottom: 2px solid #ebebeb;
+  }
+  .section {
+    margin: 3rem 2rem;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  footer {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    color: #868686;
+    font-size: 0.75rem;
+    font-family: 'Helvetica';
+    font-style: italic;
+    border-top: 2px solid #ebebeb;
+  }
+  li {
+    margin-top: 2rem;
+  }
+</style>
+
+<div>
+  <header>TGL</header>
+
+  <div class='section'>
+    <h2>Novas apostas realizadas</h2>
+
+    <p>{{ name }} realizou novas apostas:</p>
+
+    <ul>
+      {{#each bets}}
+        <li>
+          <strong>Jogo: <span style='color:{{ this.color }}'>{{ this.type }}</strong>
+          <p><strong>Números:</strong> {{ this.numbers }}</p>
+          <p><strong>Preço:</strong> {{ this.price }}</p>
+          <p><strong>Data:</strong> {{ this.date }}</p> 
+        </li>
+      {{/each}}
+    </ul>
+    
+  </div>
+
+  <footer>@ 2021 TGL - The Greatest App for Lottery</footer>
+</div>
