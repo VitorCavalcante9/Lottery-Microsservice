@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  server:
+    container_name: ms_emails
+    image: node
+    working_dir: /src/ms_emails
+    ports:
+      - 3334:3334
+    volumes:
+      - ./:/src/ms_emails
+    command: yarn dev:server
+    networks:
+      - microsservices-prova
+
+networks:
+  microsservices-prova:
+    external: true
