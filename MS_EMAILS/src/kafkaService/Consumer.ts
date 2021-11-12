@@ -1,4 +1,6 @@
 import { Kafka, Consumer as KafkaConsumer } from 'kafkajs';
+import { resolve } from 'path';
+import SendMailService from '../services/SendMailService';
 
 interface IConsumeProps {
   topic: string;
@@ -22,10 +24,28 @@ export default class Consumer {
 
     console.log('Iniciando busca...');
 
+    const betsPath = resolve(
+      __dirname,
+      '..',
+      'views',
+      'emails',
+      'betsMail.hbs'
+    );
+
     await this.consumer.run({
       eachMessage: async ({ topic, partition, message }) => {
-        const data = message.value?.toString();
-        console.log(data);
+        const data = JSON.parse(message.value?.toString()!);
+        console.log(JSON.parse(data));
+        const variables = {
+          bets: data.bets,
+          name: data.name,
+        };
+        await SendMailService.execute(
+          data.emails.join(', '),
+          'Novas apostas realizadas',
+          variables,
+          betsPath
+        );
       },
     });
   }
