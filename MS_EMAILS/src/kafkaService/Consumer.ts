@@ -35,11 +35,12 @@ export default class Consumer {
     await this.consumer.run({
       eachMessage: async ({ topic, partition, message }) => {
         const data = JSON.parse(message.value?.toString()!);
-        console.log(JSON.parse(data));
+
         const variables = {
           bets: data.bets,
           name: data.name,
         };
+
         await SendMailService.execute(
           data.emails.join(', '),
           'Novas apostas realizadas',
